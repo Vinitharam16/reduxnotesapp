@@ -1,32 +1,48 @@
-.sidebar-container{
+.sidebar-container {
     margin: 20px 15px 20px 15px;
-    > .login-container{
+
+    >.login-container {
         display: flex;
         align-items: center;
         justify-content: center;
-        > .card-img-top{
+
+        >.card-img-top {
             width: 65px;
             height: 65px;
             border-radius: 50%;
         }
-        > .user-id{
+
+        >.user-id {
             text-align: start;
         }
 
     }
-    > .nav-container{
+
+    >.nav-container {
         display: flex;
         flex-direction: column;
         gap: 10px 0px;
         margin-top: 30px;
-        > .nav-link{
+
+        >.nav-link {
             padding: 10px 20px 10px 20px;
-            color: #203562;
+
+            > a:link {
+                text-decoration: none;
+                color: #203562;
+                &:active {
+                    color: #F5F5F5;
+                    background-color: #203562;
+                    border-radius: 10px;
+        
+                }
+            }
         }
-        > .active{
+
+        /* > a:visited {
             color: #F5F5F5;
             background-color: #203562;
             border-radius: 10px;
-        }
-    } 
+        } */
+    }
 }

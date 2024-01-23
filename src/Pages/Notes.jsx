@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import './Notes.css';
 import { useDispatch, useSelector } from "react-redux";
-import { addNotes } from "../Redux/Reducers/NoteReducer";
+import { addNotes, getNoteById, deleteNoteById } from "../Redux/Reducers/NoteReducer";
 import MyNotes from "../Components/MyNotes/MyNotes";
 
 
@@ -54,8 +54,17 @@ export default function Notes() {
 
     function handleSaveNote(e) {
         dispatcher(addNotes(notetitle));
-        console.log(notes);
+    }
 
+    function handleNoteUpdate(title = ""){
+        dispatcher(getNoteById(notetitle));
+        // console.log(matchingdata);
+        
+    }
+
+    function handleNoteDelete(){
+        dispatcher(deleteNoteById(notetitle));
+        console.log(notetitle);
     }
 
     return (
@@ -137,7 +146,10 @@ export default function Notes() {
                     </div>
                 </div>
             </div> */}
-            <MyNotes/>
+            <MyNotes
+                onClick={handleNoteDelete}
+                onChange={handleNoteUpdate}
+            />
         </div>
     );
 }

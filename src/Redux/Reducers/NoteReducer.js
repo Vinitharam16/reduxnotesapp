@@ -13,9 +13,12 @@ export const NoteReducer = createSlice({
     getNoteById: (state, action) => {
       state.note = state.notes.find((data) => data.title === action.payload);
     },
+    deleteNoteById: (state,action) => {
+      state.note = state.notes.filter((data) => data.title !== action.payload);
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addNotes, getNoteById } = NoteReducer.actions;
+export const { addNotes, getNoteById, deleteNoteById } = NoteReducer.actions;
 export default NoteReducer.reducer;
