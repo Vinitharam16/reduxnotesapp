@@ -1,11 +1,29 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteNoteById, getNoteById } from "../../Redux/Reducers/NoteReducer";
 
-export default function MyNotes({
-    handleNoteUpdate = () => { },
-    handleNoteDelete = () => { },
-}) {
-    const { notes = [] } = useSelector((state) => state.notesreducer);
+export default function MyNotes() {
+    const INITIAL_STATE = {
+        title: "",
+        description: "",
+        enddate: "",
+        endtime: "",
+    }
+
+    const [notetitle, setNotetitle] = useState(INITIAL_STATE);
+    const { notes = [], note = {} } = useSelector((state) => state.notesreducer);
+    const dispatcher = useDispatch();
+
+    function handleNoteUpdate(title = "") {
+        const matchingData = dispatcher(getNoteById(notetitle));
+        // console.log(matchingdata);
+
+    }
+
+    function handleNoteDelete() {
+        dispatcher(deleteNoteById(notetitle));
+        console.log(note);
+    }
 
 
 
@@ -29,7 +47,8 @@ export default function MyNotes({
                                 <div className="note-icons">
                                     <button className="btn"
                                         id="edit-notes"
-                                        onChange={handleNoteUpdate}>
+                                        onClick={handleNoteUpdate}
+                                    >
                                         <i className='bx bx-pencil'></i>
                                     </button>
                                     <button
@@ -44,7 +63,6 @@ export default function MyNotes({
                                 {data.description}
                             </div>
                             <div className="note-update-time" >
-                                {/* <p>{data.endtime}</p> */}
                                 <p>{data.enddate} days ago</p>
                             </div>
                         </div>

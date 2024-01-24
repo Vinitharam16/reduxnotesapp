@@ -38,10 +38,8 @@ export default function Notes() {
 
     const [notetitle, setNotetitle] = useState(INITIAL_STATE);
     const dispatcher = useDispatch();
-    const { notes = [] } = useSelector((state) => state.notesreducer);
+    const { notes = [], note = {} } = useSelector((state) => state.notesreducer);
     
-
-
     function handleNoteChange(e) {
         let notetitleCopy = {
             ...notetitle,
@@ -54,17 +52,20 @@ export default function Notes() {
 
     function handleSaveNote(e) {
         dispatcher(addNotes(notetitle));
+        setNotetitle(INITIAL_STATE);
+
     }
 
-    function handleNoteUpdate(title = ""){
-        dispatcher(getNoteById(notetitle));
-        // console.log(matchingdata);
+    function handleNoteUpdate(e){
+        const matchingData = dispatcher(getNoteById(notetitle));
+        console.log(matchingData);
         
     }
 
     function handleNoteDelete(){
         dispatcher(deleteNoteById(notetitle));
-        console.log(notetitle);
+        console.log(notes);
+
     }
 
     return (
@@ -112,40 +113,6 @@ export default function Notes() {
 
                 </div>
             </div>
-            {/* <div className="saved-notes-container">
-                <div className="icon-link notes-heading">
-                    <i className='bx bx-notepad bx-sm'></i>
-                    My Notes
-                </div>
-                <div className="heading-1">Recently viewed</div>
-                <div className="notes-updated shadow">
-                    <div className="note-update-title">
-                        {
-                            notes.map((data, index) => (
-                                <p key={`${data.title}-${index}`}>{data.title}</p>
-                            ))
-                        }
-                        <div className="editing-icon bx-sm">
-                            <div>
-                                <i className='bx bx-pencil'></i>
-                            </div>
-                            <div>
-                                <i className='bx bx-trash' ></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="note-update-content">
-                        {
-                            notes.map((data, index) => (
-                                <p key={`${data.description}-${index}`}>{data.description}</p>
-                            ))
-                        }
-                    </div>
-                    <div className="note-update-time">
-                        {`5 days ago`}
-                    </div>
-                </div>
-            </div> */}
             <MyNotes
                 onClick={handleNoteDelete}
                 onChange={handleNoteUpdate}

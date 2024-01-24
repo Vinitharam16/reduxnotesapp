@@ -5,7 +5,6 @@ import { AuthenticatedRoutes, AutheticationRoutes } from './Routes';
 import { Fragment } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import app from './Pages/app';
-import { setLoggedIn } from './Redux/Reducers/AuthenticationReducer';
 
 
 function App() {
