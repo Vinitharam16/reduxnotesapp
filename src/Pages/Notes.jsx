@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import './Notes.css';
 import { useDispatch, useSelector } from "react-redux";
 import { addNotes, getNoteById, deleteNoteById } from "../Redux/Reducers/NoteReducer";
@@ -6,7 +6,10 @@ import MyNotes from "../Components/MyNotes/MyNotes";
 
 
 
-export default function Notes() {
+export default function Notes({
+    handleNoteUpdate = () => {},
+    handleNoteDelete = () => {}
+}) {
 
     function formatAMPM(date) {
         var hours = date.getHours();
@@ -37,6 +40,7 @@ export default function Notes() {
     }
 
     const [notetitle, setNotetitle] = useState(INITIAL_STATE);
+    const inputRef = useRef(null);
     const dispatcher = useDispatch();
     const { notes = [], note = {} } = useSelector((state) => state.notesreducer);
     
@@ -56,17 +60,21 @@ export default function Notes() {
 
     }
 
-    function handleNoteUpdate(e){
-        const matchingData = dispatcher(getNoteById(notetitle));
-        console.log(matchingData);
-        
-    }
+    // function handleNoteUpdate(e){
+    //     const matchingData = dispatcher(getNoteById(notetitle));
+    //     let matchingDataCopy = {
+    //         ...matchingData
+    //     };
+    //     matchingDataCopy[e.target.id]=e.target.value;
+    //     setNotetitle(matchingDataCopy);
+  
+    // }
 
-    function handleNoteDelete(){
-        dispatcher(deleteNoteById(notetitle));
-        console.log(notes);
+    // function handleNoteDelete(){
+    //     dispatcher(deleteNoteById(notetitle));
+    //     console.log(notes);
 
-    }
+    // }
 
     return (
         <div>
@@ -78,6 +86,7 @@ export default function Notes() {
                         type="text" id="title"
                         placeholder="Title"
                         value={notetitle.title}
+                        ref={inputRef}
                         onChange={handleNoteChange}
                     />
                     <textarea

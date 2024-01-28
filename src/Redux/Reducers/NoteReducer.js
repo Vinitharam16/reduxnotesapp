@@ -11,10 +11,11 @@ export const NoteReducer = createSlice({
       state.notes.push(action.payload);
     },
     getNoteById: (state, action) => {
-      state.note = state.notes.find((data) => data.title === action.payload);
+      state.notes.splice(action.payload,1,action.payload.notetitle)
+      // state.note = state.notes.find((data) => data.title === action.payload);
     },
     deleteNoteById: (state,action) => {
-      state.note = state.notes.filter((data) => data.title !== action.payload);
+      state.notes.splice(action.payload,1);
     },
   },
 });

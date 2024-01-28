@@ -14,15 +14,19 @@ export default function MyNotes() {
     const { notes = [], note = {} } = useSelector((state) => state.notesreducer);
     const dispatcher = useDispatch();
 
-    function handleNoteUpdate(title = "") {
-        const matchingData = dispatcher(getNoteById(notetitle));
-        // console.log(matchingdata);
+    function handleNoteUpdate(e,notetitle) {
+        const matchingData = dispatcher(getNoteById({e,notetitle}));
+        let matchingDataCopy = {
+            ...matchingData
+        };
+        console.log(matchingDataCopy);
 
+        matchingDataCopy[e.target.id]=e.target.value;
+        setNotetitle(matchingDataCopy); 
     }
 
-    function handleNoteDelete() {
-        dispatcher(deleteNoteById(notetitle));
-        console.log(note);
+    function handleNoteDelete(index) {
+        dispatcher(deleteNoteById(index));
     }
 
 
@@ -54,7 +58,7 @@ export default function MyNotes() {
                                     <button
                                         className="btn"
                                         id="delete-notes"
-                                        onClick={handleNoteDelete}>
+                                        onClick={()=>handleNoteDelete(index)}>
                                         <i className='bx bx-trash'></i>
                                     </button>
                                 </div>
